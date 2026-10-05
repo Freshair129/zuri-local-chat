@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/request-binding.schema.json",
+  "title": "Canonical runs.create subject",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "zpa-request-binding/v1"
+    },
+    "method": {
+      "const": "POST"
+    },
+    "route_id": {
+      "const": "runs.create"
+    },
+    "path_params": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "query": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "body": {
+      "$ref": "run-intake.schema.json"
+    },
+    "idempotency_key": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    }
+  },
+  "required": [
+    "contract_version",
+    "method",
+    "route_id",
+    "path_params",
+    "query",
+    "body",
+    "idempotency_key"
+  ],
+  "additionalProperties": false
+}

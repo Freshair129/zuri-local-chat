@@ -1,0 +1,1557 @@
+{
+  "id": "ZPA-M1-WIRE-FIXTURES-001",
+  "version": "1.0.0",
+  "status": "draft",
+  "scope": "Synthetic structural fixtures; no real signatures, identities, services or data",
+  "cases": [
+    {
+      "id": "shell-request-valid",
+      "schema": "shell-request.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "run-intake-valid",
+      "schema": "run-intake.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "Plan a task",
+        "attachment_refs": []
+      }
+    },
+    {
+      "id": "request-binding-valid",
+      "schema": "request-binding.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1"
+      }
+    },
+    {
+      "id": "check-use-valid",
+      "schema": "check-use.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "kid": "runtime-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-request/v1",
+          "iss": "runtime-fixture",
+          "aud": "shell-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "approval-bundle-valid",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "task.create",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "Review plan",
+              "notes": "",
+              "due_at": null
+            },
+            "preconditions": {
+              "mapping_version": 1
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "run-event-valid",
+      "schema": "run-event.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "contract_version": "zpa-run-event/v1",
+        "event_id": "00000000-0000-4000-8000-000000000007",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "sequence": 1,
+        "revision": 1,
+        "type": "run.accepted",
+        "occurred_at": "2026-10-05T12:00:00Z",
+        "scope_ref": "private.fixture",
+        "payload_ref": null,
+        "payload_digest": null,
+        "trace_id": "00000000-0000-4000-8000-000000000008"
+      }
+    },
+    {
+      "id": "effect-receipt-valid",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "Synthetic shape only; signatures/digests do not certify content.",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "VERIFIED",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": {
+          "resource_id": "00000000-0000-4000-8000-000000000009",
+          "version": 1,
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence_ref": "00000000-0000-4000-8000-00000000000a",
+          "checked_at": "2026-10-05T12:00:00Z"
+        },
+        "g5_report_ref": "00000000-0000-4000-8000-00000000000b",
+        "updated_at": "2026-10-05T12:00:00Z"
+      }
+    },
+    {
+      "id": "check-use-decision-valid",
+      "schema": "check-use.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "",
+      "instance": {
+        "kid": "shell-decision-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-decision/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "decision": "ALLOW",
+          "reason": "AUTHORIZED",
+          "decided_at": 1000,
+          "expires_at": 1002
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "check-use-deny-valid",
+      "schema": "check-use.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "",
+      "instance": {
+        "kid": "shell-decision-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-decision/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "decision": "DENY",
+          "reason": "SESSION_REVOKED",
+          "decided_at": 1000,
+          "expires_at": 1002
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "effect-unknown-valid",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "RECONCILE_REQUIRED",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": null,
+        "g5_report_ref": null,
+        "updated_at": "2026-10-05T12:00:00Z"
+      }
+    },
+    {
+      "id": "attachment-only-valid",
+      "schema": "run-intake.schema.json",
+      "expected_valid": true,
+      "expected_keyword": null,
+      "note": "",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "",
+        "attachment_refs": [
+          {
+            "artifact_id": "00000000-0000-4000-8000-00000000000c",
+            "version": 1,
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      }
+    },
+    {
+      "id": "identity-version",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "const",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v2",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "signature-not-hex",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "not-signature"
+      }
+    },
+    {
+      "id": "missing-nonce",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "required",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "short-nonce",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "abcd"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "empty-scope",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "minItems",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "duplicate-scope",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "uniqueItems",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "a",
+            "a"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "unsafe-epoch",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "maximum",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 9007199254740992,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "forged-claims-field",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "admin": true
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "unlisted-capability",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "enum",
+      "note": "",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "root:all"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "caller-principal",
+      "schema": "run-intake.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "Plan a task",
+        "attachment_refs": [],
+        "principal_id": "00000000-0000-4000-8000-000000000063"
+      }
+    },
+    {
+      "id": "empty-intake",
+      "schema": "run-intake.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "anyOf",
+      "note": "",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "",
+        "attachment_refs": []
+      }
+    },
+    {
+      "id": "oversize-text",
+      "schema": "run-intake.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "maxLength",
+      "note": "",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "attachment_refs": []
+      }
+    },
+    {
+      "id": "missing-attachments",
+      "schema": "run-intake.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "required",
+      "note": "",
+      "instance": {
+        "conversation_ref": "00000000-0000-4000-8000-000000000002",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "Plan a task"
+      }
+    },
+    {
+      "id": "bad-conversation",
+      "schema": "run-intake.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "format",
+      "note": "",
+      "instance": {
+        "conversation_ref": "../../escape",
+        "client_message_ref": "00000000-0000-4000-8000-000000000003",
+        "text": "Plan a task",
+        "attachment_refs": []
+      }
+    },
+    {
+      "id": "wrong-method",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "const",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "GET",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1"
+      }
+    },
+    {
+      "id": "wrong-route",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "const",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "artifacts.upload",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1"
+      }
+    },
+    {
+      "id": "unregistered-query",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {
+          "admin": true
+        },
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1"
+      }
+    },
+    {
+      "id": "absent-request-key",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "required",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        }
+      }
+    },
+    {
+      "id": "check-use-missing-binding",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "required",
+      "note": "",
+      "instance": {
+        "kid": "runtime-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-request/v1",
+          "iss": "runtime-fixture",
+          "aud": "shell-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "check-use-wrong-kind",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "enum",
+      "note": "",
+      "instance": {
+        "kid": "runtime-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-request/v1",
+          "iss": "runtime-fixture",
+          "aud": "shell-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "unrestricted",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "approval-empty-actions",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "minItems",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": []
+      }
+    },
+    {
+      "id": "approval-unknown-handler",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "const",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "shell.exec",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "Review plan",
+              "notes": "",
+              "due_at": null
+            },
+            "preconditions": {
+              "mapping_version": 1
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "approval-zero-mapping-version",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "minimum",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "task.create",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "Review plan",
+              "notes": "",
+              "due_at": null
+            },
+            "preconditions": {
+              "mapping_version": 0
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "approval-parameter-injection",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "task.create",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "Review plan",
+              "notes": "",
+              "due_at": null,
+              "command": "whoami"
+            },
+            "preconditions": {
+              "mapping_version": 1
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "approval-empty-title",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "minLength",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-10-05T12:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "task.create",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "",
+              "notes": "",
+              "due_at": null
+            },
+            "preconditions": {
+              "mapping_version": 1
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "approval-invalid-date",
+      "schema": "approval-bundle.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "format",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-approval-bundle/v1",
+        "approval_id": "00000000-0000-4000-8000-000000000004",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "scope_ref": "private.fixture",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "revision": 1,
+        "policy_version": "policy.fixture.v1",
+        "mapping_version": 1,
+        "authorization_epoch": 1,
+        "expires_at": "2026-02-30T00:00:00Z",
+        "nonce": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "actions": [
+          {
+            "action_id": "00000000-0000-4000-8000-000000000006",
+            "handler_id": "task.create",
+            "handler_version": 1,
+            "effect_class": "user_domain_write",
+            "target": {
+              "kind": "task_scope",
+              "scope_ref": "private.fixture"
+            },
+            "parameters": {
+              "title": "Review plan",
+              "notes": "",
+              "due_at": null
+            },
+            "preconditions": {
+              "mapping_version": 1
+            },
+            "expected_outcome": {
+              "kind": "task_created",
+              "readback_selector": "task.by_action_id"
+            },
+            "risk_summary": "Creates one local task.",
+            "recovery_summary": "Read task by stable action ID; do not repeat unknown action."
+          }
+        ]
+      }
+    },
+    {
+      "id": "event-zero-sequence",
+      "schema": "run-event.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "minimum",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-run-event/v1",
+        "event_id": "00000000-0000-4000-8000-000000000007",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "sequence": 0,
+        "revision": 1,
+        "type": "run.accepted",
+        "occurred_at": "2026-10-05T12:00:00Z",
+        "scope_ref": "private.fixture",
+        "payload_ref": null,
+        "payload_digest": null,
+        "trace_id": "00000000-0000-4000-8000-000000000008"
+      }
+    },
+    {
+      "id": "event-raw-text",
+      "schema": "run-event.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-run-event/v1",
+        "event_id": "00000000-0000-4000-8000-000000000007",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "sequence": 1,
+        "revision": 1,
+        "type": "run.accepted",
+        "occurred_at": "2026-10-05T12:00:00Z",
+        "scope_ref": "private.fixture",
+        "payload_ref": null,
+        "payload_digest": null,
+        "trace_id": "00000000-0000-4000-8000-000000000008",
+        "raw_text": "private fixture text"
+      }
+    },
+    {
+      "id": "event-unpaired-payload",
+      "schema": "run-event.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "oneOf",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-run-event/v1",
+        "event_id": "00000000-0000-4000-8000-000000000007",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "sequence": 1,
+        "revision": 1,
+        "type": "run.accepted",
+        "occurred_at": "2026-10-05T12:00:00Z",
+        "scope_ref": "private.fixture",
+        "payload_ref": "00000000-0000-4000-8000-00000000000d",
+        "payload_digest": null,
+        "trace_id": "00000000-0000-4000-8000-000000000008"
+      }
+    },
+    {
+      "id": "event-local-time",
+      "schema": "run-event.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-run-event/v1",
+        "event_id": "00000000-0000-4000-8000-000000000007",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "sequence": 1,
+        "revision": 1,
+        "type": "run.accepted",
+        "occurred_at": "2026-10-05T12:00:00+07:00",
+        "scope_ref": "private.fixture",
+        "payload_ref": null,
+        "payload_digest": null,
+        "trace_id": "00000000-0000-4000-8000-000000000008"
+      }
+    },
+    {
+      "id": "effect-no-readback",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "type",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "VERIFIED",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": null,
+        "g5_report_ref": "00000000-0000-4000-8000-00000000000b",
+        "updated_at": "2026-10-05T12:00:00Z"
+      }
+    },
+    {
+      "id": "effect-no-g5",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "type",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "VERIFIED",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": {
+          "resource_id": "00000000-0000-4000-8000-000000000009",
+          "version": 1,
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence_ref": "00000000-0000-4000-8000-00000000000a",
+          "checked_at": "2026-10-05T12:00:00Z"
+        },
+        "g5_report_ref": null,
+        "updated_at": "2026-10-05T12:00:00Z"
+      }
+    },
+    {
+      "id": "effect-unsafe-state",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "enum",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "SUCCESS",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": {
+          "resource_id": "00000000-0000-4000-8000-000000000009",
+          "version": 1,
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence_ref": "00000000-0000-4000-8000-00000000000a",
+          "checked_at": "2026-10-05T12:00:00Z"
+        },
+        "g5_report_ref": "00000000-0000-4000-8000-00000000000b",
+        "updated_at": "2026-10-05T12:00:00Z"
+      }
+    },
+    {
+      "id": "effect-unknown-secret-field",
+      "schema": "effect-receipt.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "additionalProperties",
+      "note": "",
+      "instance": {
+        "contract_version": "zpa-effect-receipt/v1",
+        "action_id": "00000000-0000-4000-8000-000000000006",
+        "principal_id": "00000000-0000-4000-8000-000000000001",
+        "run_id": "00000000-0000-4000-8000-000000000005",
+        "scope_ref": "private.fixture",
+        "logical_key": "task-create-fixture-1",
+        "input_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state": "VERIFIED",
+        "target_ref": "private.fixture.tasks",
+        "peer_receipt_ref": null,
+        "readback": {
+          "resource_id": "00000000-0000-4000-8000-000000000009",
+          "version": 1,
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "evidence_ref": "00000000-0000-4000-8000-00000000000a",
+          "checked_at": "2026-10-05T12:00:00Z"
+        },
+        "g5_report_ref": "00000000-0000-4000-8000-00000000000b",
+        "updated_at": "2026-10-05T12:00:00Z",
+        "token": "fixture-not-real"
+      }
+    },
+    {
+      "id": "allow-with-denial-reason",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "const",
+      "note": "",
+      "instance": {
+        "kid": "shell-decision-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-decision/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "decision": "ALLOW",
+          "reason": "SESSION_REVOKED",
+          "decided_at": 1000,
+          "expires_at": 1002
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "decision-unbound-request",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "required",
+      "note": "",
+      "instance": {
+        "kid": "shell-decision-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-decision/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "decision": "ALLOW",
+          "reason": "AUTHORIZED",
+          "decided_at": 1000,
+          "expires_at": 1002
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "opaque-trailing-lf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture\n",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "signature-trailing-lf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n"
+      }
+    },
+    {
+      "id": "nonce-trailing-lf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "use-id-trailing-lf",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "runtime-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-request/v1",
+          "iss": "runtime-fixture",
+          "aud": "shell-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "idempotency-key-trailing-lf",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1\n"
+      }
+    },
+    {
+      "id": "opaque-trailing-crlf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture\r\n",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "signature-trailing-crlf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\r\n"
+      }
+    },
+    {
+      "id": "nonce-trailing-crlf",
+      "schema": "shell-request.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "shell-key-fixture",
+        "claims": {
+          "contract_version": "zpa-shell-request/v1",
+          "iss": "shell-fixture",
+          "aud": "runtime-fixture",
+          "sub": "00000000-0000-4000-8000-000000000001",
+          "shell_subject_ref": "shell-user-fixture",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "scope_refs": [
+            "private.fixture"
+          ],
+          "capabilities": [
+            "run:submit"
+          ],
+          "request_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "iat": 1000,
+          "exp": 1030,
+          "jti": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\r\n"
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "use-id-trailing-crlf",
+      "schema": "check-use.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "kid": "runtime-key-fixture",
+        "claims": {
+          "contract_version": "zpa-check-use-request/v1",
+          "iss": "runtime-fixture",
+          "aud": "shell-fixture",
+          "principal_id": "00000000-0000-4000-8000-000000000001",
+          "session_ref": "session-fixture",
+          "mapping_version": 1,
+          "authorization_epoch": 1,
+          "capability": "task:create",
+          "scope_ref": "private.fixture",
+          "resource_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "use_kind": "effect_dispatch",
+          "use_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\r\n",
+          "iat": 1000,
+          "exp": 1030
+        },
+        "signature": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "id": "idempotency-key-trailing-crlf",
+      "schema": "request-binding.schema.json",
+      "expected_valid": false,
+      "expected_keyword": "pattern",
+      "note": "Regression for strict complete-string boundary, RCA-DOC-005",
+      "instance": {
+        "contract_version": "zpa-request-binding/v1",
+        "method": "POST",
+        "route_id": "runs.create",
+        "path_params": {},
+        "query": {},
+        "body": {
+          "conversation_ref": "00000000-0000-4000-8000-000000000002",
+          "client_message_ref": "00000000-0000-4000-8000-000000000003",
+          "text": "Plan a task",
+          "attachment_refs": []
+        },
+        "idempotency_key": "intake-fixture-1\r\n"
+      }
+    }
+  ]
+}

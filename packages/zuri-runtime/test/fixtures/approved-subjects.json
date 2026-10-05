@@ -1,0 +1,42 @@
+{
+  "approval": "M1-002",
+  "packet": "PKT-ZPA-FR-002-SCHEMA-001",
+  "subjects": [
+    {
+      "path": "src/schemas/approval-bundle.schema.json",
+      "sha256": "af98125cfa8ec475d2fcb8e53d1d8a7949ac21c6383a90616e98c312a874e54d"
+    },
+    {
+      "path": "src/schemas/check-use.schema.json",
+      "sha256": "3d79052f00453e122abe5b48a85d94ed7e659cc38e0b80419b0f9b72aa51f808"
+    },
+    {
+      "path": "src/schemas/common.schema.json",
+      "sha256": "b1b3849d9a106bd1e87ae606e136aaca1dac93650a672bb80e1d8a0162de1c8a"
+    },
+    {
+      "path": "src/schemas/effect-receipt.schema.json",
+      "sha256": "f80bfe42e6c218d08e3ae758efeec4e0cabad70fa8f8915d4e69e4a6ff69ffec"
+    },
+    {
+      "path": "src/schemas/request-binding.schema.json",
+      "sha256": "7574ac2a65cc79ecefbc09e33ed44d2bd644ec2b618e2dfd7e4fd8db91bc8a92"
+    },
+    {
+      "path": "src/schemas/run-event.schema.json",
+      "sha256": "f9c8c8a344277156e66973955aa7ecb3433f5b63e8fab52d588a76d2c5966ccd"
+    },
+    {
+      "path": "src/schemas/run-intake.schema.json",
+      "sha256": "fdbc9952bb08754c161bc2bd5ddac3353489e4233ef34249f151eeea3b6a1211"
+    },
+    {
+      "path": "src/schemas/shell-request.schema.json",
+      "sha256": "2e1f0c2ecc3eb3fa6681575096da544d079fb5f5f922cb30ca8a538085101c79"
+    },
+    {
+      "path": "test/fixtures/schema-cases.json",
+      "sha256": "8f6865651da31fb7aa64a6fd16414f19575db724006467058e245f6bdf700c6e"
+    }
+  ]
+}

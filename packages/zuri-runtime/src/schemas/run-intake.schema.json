@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/run-intake.schema.json",
+  "title": "Public run intake body",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "conversation_ref": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "client_message_ref": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 32768
+    },
+    "attachment_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "artifact_id": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "version": {
+            "$ref": "common.schema.json#/$defs/version"
+          },
+          "digest": {
+            "$ref": "common.schema.json#/$defs/digest"
+          }
+        },
+        "required": [
+          "artifact_id",
+          "version",
+          "digest"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 16,
+      "uniqueItems": true
+    },
+    "workflow_id": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    }
+  },
+  "required": [
+    "conversation_ref",
+    "client_message_ref",
+    "text",
+    "attachment_refs"
+  ],
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "text": {
+          "minLength": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "attachment_refs": {
+          "minItems": 1
+        }
+      }
+    }
+  ]
+}

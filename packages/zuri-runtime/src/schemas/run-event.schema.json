@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/run-event.schema.json",
+  "title": "Durable private event envelope",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "zpa-run-event/v1"
+    },
+    "event_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "run_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "sequence": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "revision": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "run.accepted",
+        "run.state_changed",
+        "node.state_changed",
+        "approval.required",
+        "effect.state_changed",
+        "artifact.state_changed",
+        "run.final",
+        "delivery.state_changed"
+      ]
+    },
+    "occurred_at": {
+      "$ref": "common.schema.json#/$defs/utc"
+    },
+    "scope_ref": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "payload_ref": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "payload_digest": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/digest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "trace_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    }
+  },
+  "required": [
+    "contract_version",
+    "event_id",
+    "run_id",
+    "sequence",
+    "revision",
+    "type",
+    "occurred_at",
+    "scope_ref",
+    "payload_ref",
+    "payload_digest",
+    "trace_id"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "payload_ref": {
+          "type": "null"
+        },
+        "payload_digest": {
+          "type": "null"
+        }
+      }
+    },
+    {
+      "properties": {
+        "payload_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "payload_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
+        }
+      }
+    }
+  ]
+}

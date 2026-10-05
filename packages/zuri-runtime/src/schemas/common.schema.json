@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/common.schema.json",
+  "title": "Common foundation definitions",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?![\\s\\S])",
+      "minLength": 36,
+      "maxLength": 36
+    },
+    "opaque": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*(?![\\s\\S])"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}(?![\\s\\S])",
+      "minLength": 32,
+      "maxLength": 32
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "counter": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z(?![\\s\\S])"
+    },
+    "capability": {
+      "type": "string",
+      "enum": [
+        "run:submit",
+        "run:read",
+        "run:cancel",
+        "run:resume",
+        "event:read",
+        "approval:decide",
+        "task:create",
+        "artifact:read",
+        "effect:dispatch",
+        "final:deliver"
+      ]
+    },
+    "use_kind": {
+      "type": "string",
+      "enum": [
+        "worker_dispatch",
+        "privileged_read",
+        "artifact_download",
+        "effect_dispatch",
+        "final_delivery",
+        "event_delivery"
+      ]
+    }
+  }
+}

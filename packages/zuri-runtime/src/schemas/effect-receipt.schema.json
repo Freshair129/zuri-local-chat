@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/effect-receipt.schema.json",
+  "title": "Effect lifecycle evidence shape",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "zpa-effect-receipt/v1"
+    },
+    "action_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "principal_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "run_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "scope_ref": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "logical_key": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "input_digest": {
+      "$ref": "common.schema.json#/$defs/digest"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "PREPARED",
+        "AUTHORIZED",
+        "DISPATCHING",
+        "ACKNOWLEDGED",
+        "VERIFIED",
+        "FAILED",
+        "RECONCILE_REQUIRED"
+      ]
+    },
+    "target_ref": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "peer_receipt_ref": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/opaque"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "readback": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "resource_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "version": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "digest": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "evidence_ref": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "checked_at": {
+              "$ref": "common.schema.json#/$defs/utc"
+            }
+          },
+          "required": [
+            "resource_id",
+            "version",
+            "digest",
+            "evidence_ref",
+            "checked_at"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "g5_report_ref": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "updated_at": {
+      "$ref": "common.schema.json#/$defs/utc"
+    }
+  },
+  "required": [
+    "contract_version",
+    "action_id",
+    "principal_id",
+    "run_id",
+    "scope_ref",
+    "logical_key",
+    "input_digest",
+    "state",
+    "target_ref",
+    "peer_receipt_ref",
+    "readback",
+    "g5_report_ref",
+    "updated_at"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "VERIFIED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "readback": {
+            "type": "object",
+            "properties": {
+              "resource_id": {
+                "$ref": "common.schema.json#/$defs/uuid"
+              },
+              "version": {
+                "$ref": "common.schema.json#/$defs/version"
+              },
+              "digest": {
+                "$ref": "common.schema.json#/$defs/digest"
+              },
+              "evidence_ref": {
+                "$ref": "common.schema.json#/$defs/uuid"
+              },
+              "checked_at": {
+                "$ref": "common.schema.json#/$defs/utc"
+              }
+            },
+            "required": [
+              "resource_id",
+              "version",
+              "digest",
+              "evidence_ref",
+              "checked_at"
+            ],
+            "additionalProperties": false
+          },
+          "g5_report_ref": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          }
+        }
+      }
+    }
+  ]
+}

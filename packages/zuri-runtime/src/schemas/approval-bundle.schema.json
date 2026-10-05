@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/approval-bundle.schema.json",
+  "title": "Immutable task.create preview subject",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "contract_version": {
+      "const": "zpa-approval-bundle/v1"
+    },
+    "approval_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "principal_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "scope_ref": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "run_id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "revision": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "policy_version": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "mapping_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "authorization_epoch": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "expires_at": {
+      "$ref": "common.schema.json#/$defs/utc"
+    },
+    "nonce": {
+      "$ref": "common.schema.json#/$defs/nonce"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action_id": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "handler_id": {
+            "const": "task.create"
+          },
+          "handler_version": {
+            "const": 1
+          },
+          "effect_class": {
+            "const": "user_domain_write"
+          },
+          "target": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "task_scope"
+              },
+              "scope_ref": {
+                "$ref": "common.schema.json#/$defs/opaque"
+              }
+            },
+            "required": [
+              "kind",
+              "scope_ref"
+            ],
+            "additionalProperties": false
+          },
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "notes": {
+                "type": "string",
+                "maxLength": 32768
+              },
+              "due_at": {
+                "anyOf": [
+                  {
+                    "$ref": "common.schema.json#/$defs/utc"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "title",
+              "notes",
+              "due_at"
+            ],
+            "additionalProperties": false
+          },
+          "preconditions": {
+            "type": "object",
+            "properties": {
+              "mapping_version": {
+                "$ref": "common.schema.json#/$defs/version"
+              }
+            },
+            "required": [
+              "mapping_version"
+            ],
+            "additionalProperties": false
+          },
+          "expected_outcome": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "task_created"
+              },
+              "readback_selector": {
+                "const": "task.by_action_id"
+              }
+            },
+            "required": [
+              "kind",
+              "readback_selector"
+            ],
+            "additionalProperties": false
+          },
+          "risk_summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "recovery_summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "action_id",
+          "handler_id",
+          "handler_version",
+          "effect_class",
+          "target",
+          "parameters",
+          "preconditions",
+          "expected_outcome",
+          "risk_summary",
+          "recovery_summary"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 20,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "contract_version",
+    "approval_id",
+    "principal_id",
+    "scope_ref",
+    "run_id",
+    "revision",
+    "policy_version",
+    "mapping_version",
+    "authorization_epoch",
+    "expires_at",
+    "nonce",
+    "actions"
+  ],
+  "additionalProperties": false
+}

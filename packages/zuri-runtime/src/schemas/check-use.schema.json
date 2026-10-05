@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/check-use.schema.json",
+  "title": "Fresh-use request or decision",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "kid": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "claims": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "contract_version": {
+              "const": "zpa-check-use-request/v1"
+            },
+            "iss": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "aud": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "principal_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "session_ref": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "mapping_version": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "authorization_epoch": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "capability": {
+              "$ref": "common.schema.json#/$defs/capability"
+            },
+            "scope_ref": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "resource_digest": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "use_kind": {
+              "$ref": "common.schema.json#/$defs/use_kind"
+            },
+            "use_id": {
+              "$ref": "common.schema.json#/$defs/nonce"
+            },
+            "iat": {
+              "$ref": "common.schema.json#/$defs/counter"
+            },
+            "exp": {
+              "$ref": "common.schema.json#/$defs/version"
+            }
+          },
+          "required": [
+            "contract_version",
+            "iss",
+            "aud",
+            "principal_id",
+            "session_ref",
+            "mapping_version",
+            "authorization_epoch",
+            "capability",
+            "scope_ref",
+            "resource_digest",
+            "use_kind",
+            "use_id",
+            "iat",
+            "exp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contract_version": {
+              "const": "zpa-check-use-decision/v1"
+            },
+            "iss": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "aud": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "principal_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "session_ref": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "mapping_version": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "authorization_epoch": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "capability": {
+              "$ref": "common.schema.json#/$defs/capability"
+            },
+            "scope_ref": {
+              "$ref": "common.schema.json#/$defs/opaque"
+            },
+            "resource_digest": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "use_kind": {
+              "$ref": "common.schema.json#/$defs/use_kind"
+            },
+            "use_id": {
+              "$ref": "common.schema.json#/$defs/nonce"
+            },
+            "request_digest": {
+              "$ref": "common.schema.json#/$defs/digest"
+            },
+            "decision": {
+              "type": "string",
+              "enum": [
+                "ALLOW",
+                "DENY"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "enum": [
+                "AUTHORIZED",
+                "SCOPE_DENIED",
+                "SESSION_REVOKED",
+                "MAPPING_STALE",
+                "CAPABILITY_DENIED"
+              ]
+            },
+            "decided_at": {
+              "$ref": "common.schema.json#/$defs/counter"
+            },
+            "expires_at": {
+              "$ref": "common.schema.json#/$defs/version"
+            }
+          },
+          "required": [
+            "contract_version",
+            "iss",
+            "aud",
+            "principal_id",
+            "session_ref",
+            "mapping_version",
+            "authorization_epoch",
+            "capability",
+            "scope_ref",
+            "resource_digest",
+            "use_kind",
+            "use_id",
+            "request_digest",
+            "decision",
+            "reason",
+            "decided_at",
+            "expires_at"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "decision": {
+                    "const": "ALLOW"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reason": {
+                    "const": "AUTHORIZED"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "reason": {
+                    "not": {
+                      "const": "AUTHORIZED"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "signature": {
+      "$ref": "common.schema.json#/$defs/digest"
+    }
+  },
+  "required": [
+    "kid",
+    "claims",
+    "signature"
+  ],
+  "additionalProperties": false
+}

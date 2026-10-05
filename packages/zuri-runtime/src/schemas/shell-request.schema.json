@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zpa.invalid/contracts/m1/v1/shell-request.schema.json",
+  "title": "Shell to runtime assertion",
+  "$comment": "Draft foundation profile v1.0.0. Direction approved M1-001; wire detail pending review. Structural validation is not authorization or runtime proof.",
+  "type": "object",
+  "properties": {
+    "kid": {
+      "$ref": "common.schema.json#/$defs/opaque"
+    },
+    "claims": {
+      "type": "object",
+      "properties": {
+        "contract_version": {
+          "const": "zpa-shell-request/v1"
+        },
+        "iss": {
+          "$ref": "common.schema.json#/$defs/opaque"
+        },
+        "aud": {
+          "$ref": "common.schema.json#/$defs/opaque"
+        },
+        "sub": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "shell_subject_ref": {
+          "$ref": "common.schema.json#/$defs/opaque"
+        },
+        "session_ref": {
+          "$ref": "common.schema.json#/$defs/opaque"
+        },
+        "mapping_version": {
+          "$ref": "common.schema.json#/$defs/version"
+        },
+        "authorization_epoch": {
+          "$ref": "common.schema.json#/$defs/version"
+        },
+        "scope_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/opaque"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/capability"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "request_digest": {
+          "$ref": "common.schema.json#/$defs/digest"
+        },
+        "iat": {
+          "$ref": "common.schema.json#/$defs/counter"
+        },
+        "exp": {
+          "$ref": "common.schema.json#/$defs/version"
+        },
+        "jti": {
+          "$ref": "common.schema.json#/$defs/nonce"
+        }
+      },
+      "required": [
+        "contract_version",
+        "iss",
+        "aud",
+        "sub",
+        "shell_subject_ref",
+        "session_ref",
+        "mapping_version",
+        "authorization_epoch",
+        "scope_refs",
+        "capabilities",
+        "request_digest",
+        "iat",
+        "exp",
+        "jti"
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "$ref": "common.schema.json#/$defs/digest"
+    }
+  },
+  "required": [
+    "kid",
+    "claims",
+    "signature"
+  ],
+  "additionalProperties": false
+}
